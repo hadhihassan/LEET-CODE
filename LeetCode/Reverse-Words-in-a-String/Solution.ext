@@ -1,2 +1,28 @@
-Input: s = "the sky is blue"
-Output: "blue is sky the"
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+    let queue = [];
+    let collectChar = ''
+    let extraSpaceDetect = 0
+    for (let char of s) {
+        if (char === " ") {
+            if (extraSpaceDetect === 0) {
+                queue.push(collectChar);
+                collectChar = ""
+                extraSpaceDetect++
+            } 
+        } else {
+                extraSpaceDetect = 0;
+            collectChar = collectChar + char
+        }
+    }
+    queue.push(collectChar);
+    collectChar = "";
+
+    for (let i = 0; i < queue.length; i++) {
+        collectChar = queue[i] + " " + collectChar
+    }
+    return collectChar.trim()
+};
