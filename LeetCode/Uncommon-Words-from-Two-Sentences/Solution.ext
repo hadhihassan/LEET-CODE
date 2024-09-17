@@ -1,0 +1,60 @@
+/**
+ * @param {string} s1
+ * @param {string} s2
+ * @return {string[]}
+ */
+var uncommonFromSentences = function (s1, s2) {
+    let arrayS = [];
+
+    let i = 0;
+    let j = 0;
+    let word1 = ""
+    let word2 = ""
+
+    let res = {}
+
+    while (i < s1.length || j < s2.length) {
+
+        if (i < s1.length) {
+            if (s1[i] === " ") {
+                arrayS.push(word1);
+                addObj(word1)
+                word1 = ""
+            } else {
+                word1 += s1[i];
+            }
+            i++
+        }
+        if (j < s2.length) {
+            if (s2[j] === " ") {
+                arrayS.push(word2);
+                addObj(word2)
+                word2 = ""
+            } else {
+                word2 += s2[j];
+            }
+            j++
+        }
+    }
+
+    function addObj(w) {
+        if (res[w]) {
+            res[w] += 1
+        } else {
+            res[w] = 1
+        }
+    }
+
+    arrayS.push(word1);
+    arrayS.push(word2);
+    addObj(word1)
+    addObj(word2)
+
+    for(let key in res){
+        if(res[key] !== 1){
+            delete res[key]
+        }
+    }
+
+    return Object.keys(res)
+};
